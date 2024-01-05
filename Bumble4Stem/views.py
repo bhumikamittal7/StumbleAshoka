@@ -54,7 +54,16 @@ def register(request):
             if user['email'] == email:
                 messages.error(
                     request, "Account with email ID already exists")
-                return HttpResponseRedirect("register", context={"register_form": form})
+                return render(request, "register.html", context={
+                    "display_name": display_name,
+                    "age": age,
+                    "batch": batch,
+                    "phn_no": phn_no,
+                    "pronouns": pronouns,
+                    "research_interests": research_interests,
+                    "bio": bio,
+                    "email": email,
+                    })
         if pass1 != pass2:
             messages.error(
                 request, "Passwords do not match")

@@ -115,9 +115,51 @@
             <div class="card-body">
                 <h2 class="text-center">Register</h2>
                 <br>
+                {% for message in messages %}
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
                 <form method="POST">
                     {% csrf_token %}
+                    {% if display_name%}
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter name" value="{{ display_name }}" type="text" name="display_name" required id="id_name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter email" value="{{ email }}" type="email" name="email" required id="id_email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Age" value="{{ age }}" type="number" name="age" required id="id_age">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter batch" value="{{ batch }}" type="text" name="batch" required id="id_batch">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Phone Number" value="{{ phn_no }}" type="tel" name="phn_no" required id="id_phn_no">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Pronouns" value="{{ pronouns }}" type="text" name="pronouns" required id="id_pronouns">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Research Interests" value="{{ research_interests }}" type="text" name="research_interests" required id="id_research_interests">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Enter Bio" id="id_bio" name="bio" id="" cols="30" rows="6" required>{{bio}}</textarea>
+                    </div>
                     
+                    <div class="form-group">
+                            <input class="form-control" placeholder="Enter Password" type="password" name="password1" autocomplete="new-password" required id="id_password1">
+                    </div>
+                        <ul>
+                            <li>Your password must contain at least 8 characters.</li>
+                            <li>Your password can’t be entirely numeric.</li>
+                        </ul>
+                    <div class="form-group">
+                            <input class="form-control" placeholder="Confirm password" type="password" name="password2" autocomplete="new-password" required id="id_password2">
+                    </div>
+                    {% else %}
                     <div class="form-group">
                         <input class="form-control" placeholder="Enter name" type="text" name="display_name" required id="id_name">
                     </div>
@@ -153,12 +195,7 @@
                     <div class="form-group">
                             <input class="form-control" placeholder="Confirm password" type="password" name="password2" autocomplete="new-password" required id="id_password2">
                     </div>
-                    {% for message in messages %}
-                    <div class="alert alert-success">
-                        <a class="close" href="#" data-dismiss="alert">×</a>
-                        {{ message }}
-                    </div>
-                    {% endfor %}
+                    {% endif %}
         
                     <button type="submit" id="button" class="btn btn-primary deep-purple btn-block ">Register</button>
                     <br>
