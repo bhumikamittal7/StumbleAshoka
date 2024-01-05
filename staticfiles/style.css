@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
+body {
+  margin: 0;
+  font-family: "Work Sans", sans-serif;
+  background: white;
+  font-weight: 800;
+}
+
+.navbar {
+  background: #1f1e1e;
+  height: 85px;
+}
+
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 100%;
+    height: auto;
+    display: flex;
+  }
+}

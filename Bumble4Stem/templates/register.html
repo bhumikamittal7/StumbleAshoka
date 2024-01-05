@@ -1,0 +1,171 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    
+
+<style>
+
+    #register-card {
+        width: 350px;
+        border-radius: 25px;
+        margin: 50px auto;
+
+    }
+
+     #id_email {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_password1 {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_password2 {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_name {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_age {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_batch {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_phn_no {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_pronouns {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_research_interests {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_bio {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+
+
+
+
+    #button {
+        border-radius: 30px;
+
+    }
+
+    #btn {
+        position: absolute;
+        bottom: -35px;
+        padding: 5px;
+        margin: 0px 55px;
+        align-items: center;
+        border-radius: 5px;
+
+    }
+
+    #container {
+        margin-top: 25px;
+    }
+
+    .btn-circle.btn-sm {
+        width: 40px;
+        height: 40px;
+        padding: 2px 0px;
+        border-radius: 25px;
+        font-size: 14px;
+        text-align: center;
+
+        margin: 8px;
+    }
+</style>
+        <div id="register-card" class="card">
+            <div class="card-body">
+                <h2 class="text-center">Register</h2>
+                <br>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter name" type="text" name="display_name" required id="id_name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter email" type="email" name="email" required id="id_email">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Age" type="number" name="age" required id="id_age">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter batch" type="text" name="batch" required id="id_batch">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Phone Number" type="tel" name="phn_no" required id="id_phn_no">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Pronouns" type="text" name="pronouns" required id="id_pronouns">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Research Interests" type="text" name="research_interests" required id="id_research_interests">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Enter Bio" id="id_bio" name="bio" id="" cols="30" rows="6" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                            <input class="form-control" placeholder="Enter Password" type="password" name="password1" autocomplete="new-password" required id="id_password1">
+                    </div>
+                        <ul>
+                            <li>Your password must contain at least 8 characters.</li>
+                            <li>Your password can’t be entirely numeric.</li>
+                        </ul>
+                    <div class="form-group">
+                            <input class="form-control" placeholder="Confirm password" type="password" name="password2" autocomplete="new-password" required id="id_password2">
+                    </div>
+                    {% for message in messages %}
+                    <div class="alert alert-success">
+                        <a class="close" href="#" data-dismiss="alert">×</a>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+        
+                    <button type="submit" id="button" class="btn btn-primary deep-purple btn-block ">Register</button>
+                    <br>
+                    <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+                </form>
+            </div>
+            <div>
+
+        
+{% endblock %}
