@@ -14,6 +14,9 @@ from .forms import NewUserForm
 def index(request):
     return render(request, "index.html")
 
+def matching(request):
+    return render(request, "matching.html")
+
 def login(request):
     """Log user in"""
 

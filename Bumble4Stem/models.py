@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
+    avatar_index = models.IntegerField()
     email =  models.CharField(max_length=255, unique=True, default="")
     display_name = models.CharField(max_length=255)
     age = models.IntegerField(default=0)

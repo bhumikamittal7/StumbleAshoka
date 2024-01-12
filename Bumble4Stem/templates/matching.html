@@ -1,0 +1,291 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Matching
+{% endblock %}
+
+{% block main %}
+    <style>
+      .card {
+        margin: auto;
+        width: 40vw;
+        height: 80vh;
+        position: relative;
+        border-radius: 40px;
+        transition: all 0.8s;
+        perspective: 600px;
+        perspective-origin: center bottom;
+}
+
+    .upper-part {
+    width: 100%;
+    height: 65%;
+    border-radius: 40px 40px 0 0;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.9s;
+    }
+
+    .upper-part-face,
+    .upper-part-back {
+    text-align: center;
+    background-color: #22517d;
+    color: #011f3b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    border-radius: 40px 40px 0 0;
+    font-weight: bold;
+    z-index: 2;
+    backface-visibility: hidden;
+    transition: all 0.6s;
+    }
+
+    .upper-part-back {
+    background-color: #22517d;
+    color: lightgray;
+    transform: rotatex(180deg);
+    }
+
+    .lower-part {
+    width: 100%;
+    height: 35%;
+    border-radius: 0 0 40px 40px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform-origin: center top;
+    transition: all 0.9s;
+    }
+
+    .lower-part-face,
+    .lower-part-back {
+    background-color: #2c9994;
+    width: 100%;
+    height: 100%;
+    color: lightgray;
+    font-weight: bold;
+    position: absolute;
+    border-radius: 0 0 40px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0, -0.8px);
+    backface-visibility: hidden;
+    z-index: 2;
+    }
+
+    .lower-part-back {
+    backface-visibility: visible;
+    border-radius: 40px;
+    color: lightgray;
+    background-color: #2c9994;
+    transform: rotateX(180deg);
+    z-index: 1;
+    transition: border-radius 0.6s;
+    }
+
+    .avatar{
+    width: 200px;
+    height: 200px;
+    border-radius: 30%;
+    margin-right: 20px;
+    }
+    .cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    overflow: hidden;
+    font-size: 40px;
+    }
+    .info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    }
+    .info div{
+    font-size: 50px;
+    }
+
+    .btn_contaniner{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0px 15% 0px 15%;
+    margin-top: 20px;
+    }
+
+    .bio{
+    font-size: 0.9rem;
+
+    }
+
+    @media only screen and (max-width: 600px) {
+        
+    .info div{
+    font-size: 1.5rem;
+    }
+    .cont {
+    font-size: 2rem;
+    }
+
+    .card:hover{
+    background-color: #22517d;
+    }
+
+    .card:hover > .lower-part {
+    transform: translateY(24vh) rotateX(0.5turn);
+    }
+
+    .avatar{
+    width: 140px;
+    height: 140px;
+    border-radius: 30%;
+    margin-right: 20px;
+    }
+    .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+    .card{
+    width: 85%;
+    height: 65%;
+    margin: 0px 20% 0px 10%;
+    }
+    .bio{
+    font-size: 0.8rem;
+    }
+    .btn_contaniner{
+    margin: auto;
+    margin-top: 12px;
+    }
+    }
+
+    @media only screen and (min-width: 600px) {
+    .card:hover > .lower-part {
+    transform: translateY(27.9vh) rotateX(0.5turn);
+    }
+    }
+    .card:hover > .upper-part {
+    transform: rotatex(-0.5turn);
+    }
+
+    .card:hover > .lower-part > .lower-part-back {
+    border-radius: 0 0 40px 40px;
+    }
+    button {
+    font-family: inherit;
+    font-size: 20px;
+    background: royalblue;
+    color: white;
+    padding: 0.7em 1em;
+    padding-left: 0.9em;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.2s;
+    cursor: pointer;
+    }
+
+    button span {
+    display: block;
+    margin-left: 0.3em;
+    transition: all 0.3s ease-in-out;
+    }
+
+    button svg {
+    display: block;
+    transform-origin: center center;
+    transition: transform 0.3s ease-in-out;
+    }
+
+    button:hover .svg-wrapper {
+    animation: fly-1 0.6s ease-in-out infinite alternate;
+    }
+
+    button:hover svg {
+    transform: translateX(1.2em) scale(1.1);
+    }
+
+    button:hover span {
+    transform: translateX(5em);
+    }
+
+    button:active {
+    transform: scale(0.95);
+    }
+
+    @keyframes fly-1 {
+    from {
+    transform: translateY(0.1em);
+    }
+
+    to {
+    transform: translateY(-0.1em);
+    }
+    }
+</style>
+    
+    <div class="card">
+      <div class="upper-part">
+        <div class="upper-part-face">
+          <div class="cont">
+          <img src="1.jpg" class="avatar" alt="avatar">
+          <div><span>Shivansh Verma</span></div>
+        </div>
+      </div>
+        <div class="upper-part-back">
+          
+            <div class="bio">
+              <span>Bio:</span>
+              <p>To initialize an object, there are a few different options available. One possibility is to use an object initializer. Another method involves setting all properties within an anonymous function instance. If your environment supports ES2015 features, you may also use computed property names. For Solution 2, you must set a value to an associative array or object for variable purposes. If you don't set a value, undefined will result and have no properties. To fix this issue, specify the object's type when using an arrow function, as Angular uses TypeScript. You can do something like this.</p>
+            </div>
+          
+          </div>
+      </div>
+      <div class="lower-part">
+        <div class="lower-part-face">
+          <div class="info">
+            <div><span>18</span></div>
+            <div><span>Male</span></div>
+            <div><span>He/him</span></div>
+          </div>
+        </div>
+        <div class="lower-part-back">
+          <span>Research Interests:AI/ML Human Computer Vision</span>
+        </div>
+      </div>
+    </div>
+    <form action="POST">
+      <div class="btn_contaniner">
+      <button type="submit" value="like" name="like">
+        <div class="svg-wrapper-1">
+          <div class="svg-wrapper">
+            <svg viewBox="0 0 25 25"  width="24"
+            height="24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cross</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-469.000000, -1041.000000)" fill="#544f4f"> <path d="M487.148,1053.48 L492.813,1047.82 C494.376,1046.26 494.376,1043.72 492.813,1042.16 C491.248,1040.59 488.712,1040.59 487.148,1042.16 L481.484,1047.82 L475.82,1042.16 C474.257,1040.59 471.721,1040.59 470.156,1042.16 C468.593,1043.72 468.593,1046.26 470.156,1047.82 L475.82,1053.48 L470.156,1059.15 C468.593,1060.71 468.593,1063.25 470.156,1064.81 C471.721,1066.38 474.257,1066.38 475.82,1064.81 L481.484,1059.15 L487.148,1064.81 C488.712,1066.38 491.248,1066.38 492.813,1064.81 C494.376,1063.25 494.376,1060.71 492.813,1059.15 L487.148,1053.48" id="cross" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+          </div>
+        </div>
+        <span>Pass</span>
+      </button>
+      <button type="submit" value="like" name="like">
+        <div class="svg-wrapper-1">
+          <div class="svg-wrapper">
+            <svg width="24"
+            height="24" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z" fill="#ff0000"></path> </g></svg>
+          </div>
+        </div>
+        <span>Like</span>
+      </button>
+    </div>
+    </form>
+
+{% endblock %}
