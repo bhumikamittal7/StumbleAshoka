@@ -109,7 +109,7 @@
     width: 100%;
     }
     .info div{
-    font-size: 50px;
+    font-size: 25px;
     }
 
     .btn_contaniner{
@@ -260,7 +260,7 @@
         <div class="lower-part-face">
           <div class="info">
             <div><span>18</span></div>
-            <div><span>Male</span></div>
+            <div><span>Computer Science</span></div>
             <div><span>He/him</span></div>
           </div>
         </div>
@@ -271,7 +271,7 @@
     </div>
     <form action="POST">
       <div class="btn_contaniner">
-      <button type="submit" value="like" name="like">
+      <button type="submit" value="{{user.id}}" name="like">
         <div class="svg-wrapper-1">
           <div class="svg-wrapper">
             <svg viewBox="0 0 25 25"  width="24"
@@ -280,7 +280,7 @@
         </div>
         <span>Pass</span>
       </button>
-      <button type="submit" value="like" name="like">
+      <button type="submit" value="{{user.id}}" name="dislike">
         <div class="svg-wrapper-1">
           <div class="svg-wrapper">
             <svg width="24"

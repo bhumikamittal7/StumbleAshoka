@@ -9,6 +9,7 @@ urlpatterns = [
     path("logout/",views.logout, name="logout"),
     path("matching/", views.matching, name="matching"),
     path("myMatches/", views.myMatches, name="myMatches")
+    
 ]
 
 

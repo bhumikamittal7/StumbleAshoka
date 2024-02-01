@@ -15,9 +15,30 @@ def index(request):
     return render(request, "index.html")
 
 def matching(request):
+    if request.method["POST"]:
+        if request.POST["like"]:
+            m1id = request.session["user_id"]
+            m2id = request.POST["like"]
+            m = Matches(m1id=m1id, m2id=m2id)
+            m.save()
+            return HttpResponseRedirect("/matching")
+        if request.POST["dislike"]:
+            r1id = request.session["user_id"]
+            r2id = request.POST["dislike"]
+            r = Rejected(r1id=r1id, r2id=r2id)
+            r.save()
+            return HttpResponseRedirect("/matching")
+
+    if request.method["GET"]:
+        users = Users.objects.all()
+
+        return render(request, "matching.html", context={"users": users})
     return render(request, "matching.html")
 
 def myMatches(request):
+    # SELECT m2id_id AS user2
+    # FROM Bumble4Stem_matches
+    # WHERE (m1id_id, m2id_id) IN (SELECT m2id_id, m1id_id FROM Bumble4Stem_matches) AND m1id_id = request.session["user_id"];
     return render(request, "myMatches.html")
 
 def login(request):
