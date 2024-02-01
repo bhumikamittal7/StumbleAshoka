@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% load extras %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+
+        <style>
+            html{
+                margin: 0;
+                padding: 0;
+            }
+            body{
+                margin: 0;
+                padding: 0;
+            }
+            .avatar{
+                width: 70px;
+                height: 70px;
+                border-radius: 50%;
+            }
+            .arrow{
+                width: 50px;
+                height: 50px;
+            }
+            .cont{
+                display: flex;
+                align-items: center;
+                justify-content: left;
+                padding: 10px;
+                border-bottom: 1px solid black;
+            }
+            #last{
+                margin-left: auto;
+            }
+            #name{
+                margin-left: 50px;
+                font-size: 35px;
+            }
+        </style>
+        {% load static %}
+        <div class="cont">
+            <img class="avatar" src="{% static '1.jpg' %}" alt="pf">
+            <b id="name">{{ name }}</b>
+            <a href="#" id="last"> <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 7L15 12L10 17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> </a>
+        </div>
+        <div class="cont">
+            <img class="avatar" src="{% static '1.jpg' %}" alt="pf">
+            <b id="name">{{ name }}</b>
+            <a href="#" id="last"> <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 7L15 12L10 17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> </a>
+        </div>
+        <div class="cont">
+            <img class="avatar" src="{% static '1.jpg' %}" alt="pf">
+            <b id="name">{{ name }}</b>
+            <a href="#" id="last"> <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 7L15 12L10 17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> </a>
+        </div>
+
+{% endblock %}
