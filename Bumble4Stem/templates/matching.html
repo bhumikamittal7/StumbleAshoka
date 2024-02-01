@@ -133,6 +133,9 @@
     .cont {
     font-size: 2rem;
     }
+    .card{
+      margin-top: 20px !important;
+    }
 
     .card:hover{
     background-color: #22517d;
@@ -164,10 +167,11 @@
     }
     .btn_contaniner{
     margin: auto;
-    margin-top: 12px;
+    margin-top: 20px;
     }
     }
 
+    /* Large screen */
     @media only screen and (min-width: 600px) {
     .card:hover > .lower-part {
     transform: translateY(27.9vh) rotateX(0.5turn);
@@ -234,12 +238,12 @@
     }
     }
 </style>
-    
+{% load static %}
     <div class="card">
       <div class="upper-part">
         <div class="upper-part-face">
           <div class="cont">
-          <img src="1.jpg" class="avatar" alt="avatar">
+          <img src="{% static '1.jpg' %}" class="avatar" alt="avatar">
           <div><span>Shivansh Verma</span></div>
         </div>
       </div>

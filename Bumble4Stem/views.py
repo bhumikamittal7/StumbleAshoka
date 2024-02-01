@@ -12,10 +12,14 @@ from .forms import NewUserForm
 # Create your views here.
 
 def index(request):
+    print(request.user.is_authenticated)
     return render(request, "index.html")
 
 def matching(request):
     return render(request, "matching.html")
+
+def myMatches(request):
+    return render(request, "myMatches.html")
 
 def login(request):
     """Log user in"""
