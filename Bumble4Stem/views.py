@@ -8,38 +8,66 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 
 from Bumble4Stem.models import Users, Matches, Rejected
+from django.db.models import Q, F
 from .forms import NewUserForm
 # Create your views here.
 
 def index(request):
+
     return render(request, "index.html")
 
+def profile(request):
+    request.session["user_id"] = 1
+    user = Users.objects.filter(id=request.session["user_id"]).first()
+    return render(request, "myProfile.html", context={"user": user})
+
 def matching(request):
-    if request.method["POST"]:
-        if request.POST["like"]:
-            m1id = request.session["user_id"]
-            m2id = request.POST["like"]
+    if request.method == "POST":
+        request.session["user_id"] = 1
+        print(list(request.POST.keys())[1])
+        if list(request.POST.keys())[1] == "like":
+            m1id = Users.objects.filter(id=request.session["user_id"]).first()
+            m2id = Users.objects.filter(id=request.POST["like"]).first()
             m = Matches(m1id=m1id, m2id=m2id)
             m.save()
             return HttpResponseRedirect("/matching")
-        if request.POST["dislike"]:
-            r1id = request.session["user_id"]
-            r2id = request.POST["dislike"]
+        if list(request.POST.keys())[1] == "dislike":
+            r1id = Users.objects.filter(id=request.session["user_id"]).first()
+            r2id = Users.objects.filter(id=request.POST["dislike"]).first()
             r = Rejected(r1id=r1id, r2id=r2id)
             r.save()
             return HttpResponseRedirect("/matching")
 
-    if request.method["GET"]:
-        users = Users.objects.all()
-
-        return render(request, "matching.html", context={"users": users})
+    if request.method == "GET":
+        request.session["user_id"] = 1
+        user= getRandomUser(request.session["user_id"])
+        if user != None:
+            return render(request, "matching.html", context={"user": user})
+        else:
+            return render(request, "matching.html", context={"user": "user not found"})
+    
     return render(request, "matching.html")
 
 def myMatches(request):
-    # SELECT m2id_id AS user2
-    # FROM Bumble4Stem_matches
-    # WHERE (m1id_id, m2id_id) IN (SELECT m2id_id, m1id_id FROM Bumble4Stem_matches) AND m1id_id = request.session["user_id"];
-    return render(request, "myMatches.html")
+    request.session["user_id"] = 1
+    likes = Matches.objects.filter(m1id=request.session['user_id']).values('m2id')
+    matches = []
+    for like in likes:
+        m = Matches.objects.filter(Q(m1id=like["m2id"], m2id=request.session["user_id"])
+        ).values('m2id')
+        if m.exists():
+            matches.append(like["m2id"])
+
+    user2_list = Users.objects.filter(id__in=matches)
+    return render(request, "myMatches.html", context={"matches": list(user2_list)})
+
+def myLikes(request):
+    request.session["user_id"] = 2
+    likes = Matches.objects.filter(m1id=request.session["user_id"]).values('m2id')
+    likes = [like['m2id'] for like in likes]
+    user2_list = Users.objects.filter(id__in=likes)
+
+    return render(request, "myLikes.html", context={"likes": list(user2_list)})
 
 def login(request):
     """Log user in"""
@@ -71,6 +99,7 @@ def register(request):
         batch = request.POST['batch']
         phn_no = request.POST['phn_no']
         pronouns = request.POST['pronouns']
+        major = request.POST['major']
         research_interests = request.POST['research_interests']
         bio = request.POST['bio']
         pass1 = request.POST['password1']
@@ -86,6 +115,7 @@ def register(request):
                     "age": age,
                     "batch": batch,
                     "phn_no": phn_no,
+                    "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
                     "bio": bio,
@@ -104,6 +134,7 @@ def register(request):
             f = Users( 
                 email=email,
                 display_name=display_name,
+                major=major,
                 age=age,
                 batch=batch,
                 phn_no=phn_no,
@@ -144,5 +175,20 @@ def handler400(request, exception):
 
 
 def csrf_failure(request, reason=""):
-    
     return render(request,'403_csrf.html')
+
+def getRandomUser(id):
+    """Get a random user"""
+    matches = Matches.objects.filter(m1id=id).values('m2id')
+    rejects = Rejected.objects.filter(r1id=id).values('r2id')
+    # Extracting user IDs from matches and rejects
+    matched_user_ids = [match['m2id'] for match in matches]
+    rejected_user_ids = [reject['r2id'] for reject in rejects]
+    
+    # Combine the lists of excluded user IDs
+    excluded_user_ids = matched_user_ids + rejected_user_ids
+
+    # Get a random user
+    user = Users.objects.exclude(id=id).exclude(id__in=excluded_user_ids).order_by('?').first()
+
+    return user

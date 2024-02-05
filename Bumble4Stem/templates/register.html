@@ -53,6 +53,12 @@
         border-color: #ebf0fc;
         color: #9da3b0;
     }
+    #id_major {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
     #id_phn_no {
         border-radius: 30px;
         background-color: #ebf0fc;
@@ -137,6 +143,16 @@
                         <input class="form-control" placeholder="Enter batch" value="{{ batch }}" type="text" name="batch" required id="id_batch">
                     </div>
                     <div class="form-group">
+                        <input class="form-control" placeholder="Select Major" list="major" name="age" required id="id_major">
+                        <datalist id="major">
+                            <option value="Physics">
+                            <option value="Biology">
+                            <option value="Computer Science">
+                            <option value="Chemistry">
+                            <option value="Mathematics">
+                          </datalist>
+                    </div>
+                    <div class="form-group">
                         <input class="form-control" placeholder="Enter Phone Number" value="{{ phn_no }}" type="tel" name="phn_no" required id="id_phn_no">
                     </div>
                     <div class="form-group">
@@ -171,6 +187,16 @@
                     </div>
                     <div class="form-group">
                         <input class="form-control" placeholder="Enter batch" type="text" name="batch" required id="id_batch">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Select Major" list="major" name="age" required id="id_major">
+                        <datalist id="major">
+                            <option value="Physics">
+                            <option value="Biology">
+                            <option value="Computer Science">
+                            <option value="Chemistry">
+                            <option value="Mathematics">
+                          </datalist>
                     </div>
                     <div class="form-group">
                         <input class="form-control" placeholder="Enter Phone Number" type="tel" name="phn_no" required id="id_phn_no">

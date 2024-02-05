@@ -239,19 +239,25 @@
     }
 </style>
 {% load static %}
+
+{% if user == "user not found" %}
+
+<h1>Sorry no more users left</h1>
+
+{% else %}
     <div class="card">
       <div class="upper-part">
         <div class="upper-part-face">
           <div class="cont">
           <img src="{% static '1.jpg' %}" class="avatar" alt="avatar">
-          <div><span>Shivansh Verma</span></div>
+          <div><span>{{user.display_name}}</span></div>
         </div>
       </div>
         <div class="upper-part-back">
           
             <div class="bio">
               <span>Bio:</span>
-              <p>To initialize an object, there are a few different options available. One possibility is to use an object initializer. Another method involves setting all properties within an anonymous function instance. If your environment supports ES2015 features, you may also use computed property names. For Solution 2, you must set a value to an associative array or object for variable purposes. If you don't set a value, undefined will result and have no properties. To fix this issue, specify the object's type when using an arrow function, as Angular uses TypeScript. You can do something like this.</p>
+              <p>{{user.bio}}</p>
             </div>
           
           </div>
@@ -259,19 +265,20 @@
       <div class="lower-part">
         <div class="lower-part-face">
           <div class="info">
-            <div><span>18</span></div>
-            <div><span>Computer Science</span></div>
-            <div><span>He/him</span></div>
+            <div><span>{{ user.age }}</span></div>
+            <div><span>{{ user.major }}</span></div>
+            <div><span>{{ user.pronouns }}</span></div>
           </div>
         </div>
         <div class="lower-part-back">
-          <span>Research Interests:AI/ML Human Computer Vision</span>
+          <span>Research Interests:{{ user.research_interests }}</span>
         </div>
       </div>
     </div>
-    <form action="POST">
+    <form method="POST">
+      {% csrf_token %}
       <div class="btn_contaniner">
-      <button type="submit" value="{{user.id}}" name="like">
+      <button type="submit" value="{{user.id}}" name="dislike">
         <div class="svg-wrapper-1">
           <div class="svg-wrapper">
             <svg viewBox="0 0 25 25"  width="24"
@@ -280,7 +287,7 @@
         </div>
         <span>Pass</span>
       </button>
-      <button type="submit" value="{{user.id}}" name="dislike">
+      <button type="submit" value="{{user.id}}" name="like">
         <div class="svg-wrapper-1">
           <div class="svg-wrapper">
             <svg width="24"
@@ -291,5 +298,6 @@
       </button>
     </div>
     </form>
+    {% endif %}
 
 {% endblock %}

@@ -3,9 +3,10 @@ from django.db import models
 # Create your models here.
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
-    avatar_index = models.IntegerField()
+    avatar_index = models.IntegerField(default=0)
     email =  models.CharField(max_length=255, unique=True, default="")
     display_name = models.CharField(max_length=255)
+    major = models.CharField(max_length=255, default="Computer Science")
     age = models.IntegerField(default=0)
     batch = models.CharField(max_length=255)
     phn_no = models.IntegerField()
