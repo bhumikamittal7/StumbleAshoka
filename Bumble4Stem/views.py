@@ -13,17 +13,21 @@ from .forms import NewUserForm
 # Create your views here.
 
 def index(request):
-
     return render(request, "index.html")
 
+@login_required(login_url='/login')
 def profile(request):
-    request.session["user_id"] = 1
     user = Users.objects.filter(id=request.session["user_id"]).first()
     return render(request, "myProfile.html", context={"user": user})
 
+@login_required(login_url='/login')
+def otherProfile(request, id):
+    user = Users.objects.filter(id=id).first()
+    return render(request, "otherProfile.html", context={"user": user})
+
+@login_required(login_url='/login')
 def matching(request):
     if request.method == "POST":
-        request.session["user_id"] = 1
         print(list(request.POST.keys())[1])
         if list(request.POST.keys())[1] == "like":
             m1id = Users.objects.filter(id=request.session["user_id"]).first()
@@ -31,6 +35,7 @@ def matching(request):
             m = Matches(m1id=m1id, m2id=m2id)
             m.save()
             return HttpResponseRedirect("/matching")
+            
         if list(request.POST.keys())[1] == "dislike":
             r1id = Users.objects.filter(id=request.session["user_id"]).first()
             r2id = Users.objects.filter(id=request.POST["dislike"]).first()
@@ -39,7 +44,6 @@ def matching(request):
             return HttpResponseRedirect("/matching")
 
     if request.method == "GET":
-        request.session["user_id"] = 1
         user= getRandomUser(request.session["user_id"])
         if user != None:
             return render(request, "matching.html", context={"user": user})
@@ -48,8 +52,8 @@ def matching(request):
     
     return render(request, "matching.html")
 
+@login_required(login_url='/login')
 def myMatches(request):
-    request.session["user_id"] = 1
     likes = Matches.objects.filter(m1id=request.session['user_id']).values('m2id')
     matches = []
     for like in likes:
@@ -61,6 +65,7 @@ def myMatches(request):
     user2_list = Users.objects.filter(id__in=matches)
     return render(request, "myMatches.html", context={"matches": list(user2_list)})
 
+@login_required(login_url='/login')
 def myLikes(request):
     request.session["user_id"] = 2
     likes = Matches.objects.filter(m1id=request.session["user_id"]).values('m2id')

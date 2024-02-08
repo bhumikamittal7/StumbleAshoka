@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+{% load extras %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+{% load static %}
+<style>
+    .avatar{
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+    }
+    .cont{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        margin: auto;
+        width: 50vw;
+        border: 1px solid white;
+        border-radius: 25px;
+        background-color: #2c9994;
+    }
+    .info_cont{
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: #22517d;
+        color: white;
+        border-radius: 50px;
+    }
+
+    .name{
+        font-size: 33px;
+    }
+    .info{
+        font-size: 20px;
+    }
+    .large{
+        width: 70% !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .cont{
+            width: 90vw;
+            font-size: 1.2rem;
+            margin-top:20px;
+        }
+        .info_cont{
+            width: 70%;
+        }
+        .large{
+            width: 90% !important;
+        }
+    }
+</style>
+<div class="cont">
+    <img class="avatar" src="{% static '1.jpg' %}" alt="pf">
+    <div class="info_cont">
+    <div class="name">{{ user.display_name }}</div>
+    </div>
+    <span>Age</span>
+    <div class="info_cont">
+    <div class="info">{{ user.age }}</div>
+    </div>
+    <span>Pronouns</span>
+    <div class="info_cont">
+    <div class="info">{{ user.pronouns }}</div>
+    </div>
+    <span>Email</span>
+    <div class="info_cont large">
+    <div class="info" style="font-size: 17px !important;">{{ user.email }}</div>
+    </div>
+    <span>Batch</span>
+    <div class="info_cont">
+    <div class="info">{{ user.batch }}</div>
+    </div>
+    <span>Major</span>
+    <div class="info_cont">
+    <div class="info">{{ user.major }}</div>
+    </div>
+    <span>Phone Number</span>
+    <div class="info_cont">
+    <div class="info">{{ user.phn_no }}</div>
+    </div>
+    <span>Research Interests</span>
+    <div class="info_cont large">
+    <div class="info">{{ user.research_interests }}</div>
+    </div>
+    <span>Bio</span>
+    <div class="info_cont large">
+    <div class="info">{{ user.bio }}</div>
+    </div>
+</div>
+
+
+{% endblock %}
