@@ -18,12 +18,12 @@ def index(request):
 @login_required(login_url='/login')
 def profile(request):
     user = Users.objects.filter(id=request.session["user_id"]).first()
-    return render(request, "myProfile.html", context={"user": user})
+    return render(request, "myProfile.html", context={"fuser": user})
 
 @login_required(login_url='/login')
 def otherProfile(request, id):
     user = Users.objects.filter(id=id).first()
-    return render(request, "otherProfile.html", context={"user": user})
+    return render(request, "otherProfile.html", context={"fuser": user})
 
 @login_required(login_url='/login')
 def matching(request):
@@ -35,7 +35,7 @@ def matching(request):
             m = Matches(m1id=m1id, m2id=m2id)
             m.save()
             return HttpResponseRedirect("/matching")
-            
+
         if list(request.POST.keys())[1] == "dislike":
             r1id = Users.objects.filter(id=request.session["user_id"]).first()
             r2id = Users.objects.filter(id=request.POST["dislike"]).first()
@@ -46,9 +46,10 @@ def matching(request):
     if request.method == "GET":
         user= getRandomUser(request.session["user_id"])
         if user != None:
-            return render(request, "matching.html", context={"user": user})
+            return render(request, "matching.html", context={"fuser": user})
         else:
-            return render(request, "matching.html", context={"user": "user not found"})
+            print(user)
+            return render(request, "matching.html", context={"fuser": "user not found"})
     
     return render(request, "matching.html")
 

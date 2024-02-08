@@ -240,7 +240,7 @@
 </style>
 {% load static %}
 
-{% if user == "user not found" %}
+{% if fuser == "user not found" %}
 
 <h1>Sorry no more users left</h1>
 
@@ -250,14 +250,14 @@
         <div class="upper-part-face">
           <div class="cont">
           <img src="{% static '1.jpg' %}" class="avatar" alt="avatar">
-          <div><span>{{user.display_name}}</span></div>
+          <div><span>{{fuser.display_name}}</span></div>
         </div>
       </div>
         <div class="upper-part-back">
           
             <div class="bio">
               <span>Bio:</span>
-              <p>{{user.bio}}</p>
+              <p>{{fuser.bio}}</p>
             </div>
           
           </div>
@@ -265,20 +265,20 @@
       <div class="lower-part">
         <div class="lower-part-face">
           <div class="info">
-            <div><span>{{ user.age }}</span></div>
-            <div><span>{{ user.major }}</span></div>
-            <div><span>{{ user.pronouns }}</span></div>
+            <div><span>{{ fuser.age }}</span></div>
+            <div><span>{{ fuser.major }}</span></div>
+            <div><span>{{ fuser.pronouns }}</span></div>
           </div>
         </div>
         <div class="lower-part-back">
-          <span>Research Interests:{{ user.research_interests }}</span>
+          <span>Research Interests:{{ fuser.research_interests }}</span>
         </div>
       </div>
     </div>
     <form method="POST">
       {% csrf_token %}
       <div class="btn_contaniner">
-      <button type="submit" value="{{user.id}}" name="dislike">
+      <button type="submit" value="{{fuser.id}}" name="dislike">
         <div class="svg-wrapper-1">
           <div class="svg-wrapper">
             <svg viewBox="0 0 25 25"  width="24"
@@ -287,7 +287,7 @@
         </div>
         <span>Pass</span>
       </button>
-      <button type="submit" value="{{user.id}}" name="like">
+      <button type="submit" value="{{fuser.id}}" name="like">
         <div class="svg-wrapper-1">
           <div class="svg-wrapper">
             <svg width="24"
