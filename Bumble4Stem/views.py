@@ -111,6 +111,7 @@ def register(request):
         pass1 = request.POST['password1']
         pass2 = request.POST['password2']
         email = request.POST['email']
+        avatar_index = request.POST['avatar_index']
         users = Users.objects.values('email')
         for user in users:
             if user['email'] == email:
@@ -126,6 +127,7 @@ def register(request):
                     "research_interests": research_interests,
                     "bio": bio,
                     "email": email,
+                    "avatar_index": avatar_index
                     })
         if pass1 != pass2:
             messages.error(
@@ -146,7 +148,8 @@ def register(request):
                 phn_no=phn_no,
                 pronouns=pronouns,
                 research_interests=research_interests,
-                bio=bio)
+                bio=bio,
+                avatar_index=avatar_index)
             f.save()
             rows = Users.objects.get(email=user.email)
             request.session["user_id"] = rows.id
