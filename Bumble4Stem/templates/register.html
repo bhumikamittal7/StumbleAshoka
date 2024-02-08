@@ -210,13 +210,23 @@
                     <div class="form-group">
                         <textarea class="form-control" placeholder="Enter Bio" id="id_bio" name="bio" id="" cols="30" rows="6" required></textarea>
                     </div>
+
+                    <div class="form-group">
+                        <div>Choose Avatar</div>
+                        <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 10px;">
+                            <label>
+                                <input type="radio" name="avatar_index" value="1" />
+                                <img src="/static/1.jpg" alt="Avatar 1" style="height: 50px; width: 50px; border: 0; border-radius: 100px;" />
+                            </label>
+                        </div>
+                    </div>
                     
                     <div class="form-group">
                             <input class="form-control" placeholder="Enter Password" type="password" name="password1" autocomplete="new-password" required id="id_password1">
                     </div>
                         <ul>
                             <li>Your password must contain at least 8 characters.</li>
-                            <li>Your password can’t be entirely numeric.</li>
+                            <li>Your password can&apos;t be entirely numeric.</li>
                         </ul>
                     <div class="form-group">
                             <input class="form-control" placeholder="Confirm password" type="password" name="password2" autocomplete="new-password" required id="id_password2">
