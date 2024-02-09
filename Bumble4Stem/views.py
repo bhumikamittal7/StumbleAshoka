@@ -149,11 +149,33 @@ def register(request):
         if pass1 != pass2:
             messages.error(
                 request, "Passwords do not match")
-            return HttpResponseRedirect("register")
+            return render(request, "register.html", context={
+                    "display_name": display_name,
+                    "age": age,
+                    "batch": batch,
+                    "phn_no": phn_no,
+                    "major": major,
+                    "pronouns": pronouns,
+                    "research_interests": research_interests,
+                    "bio": bio,
+                    "email": email,
+                    "avatar_index": avatar_index
+                    })
         if len(pass1) < 8:
             messages.error(
                 request, "Passwords should have at least 8 characters")
-            return HttpResponseRedirect("register")
+            return render(request, "register.html", context={
+                    "display_name": display_name,
+                    "age": age,
+                    "batch": batch,
+                    "phn_no": phn_no,
+                    "major": major,
+                    "pronouns": pronouns,
+                    "research_interests": research_interests,
+                    "bio": bio,
+                    "email": email,
+                    "avatar_index": avatar_index
+                    })
         if form.is_valid():
             user = form.save()
             f = Users( 
