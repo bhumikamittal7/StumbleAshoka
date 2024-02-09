@@ -111,7 +111,7 @@
 
         {% for like in likes %}
         <div class="cont">
-            <img class="avatar" src="/static/{{like.avatar_index}}.jpg" alt="pf" />
+            <img class="avatar" src="/static/{{like.avatar_index}}.png" alt="pf" />
             <b id="name">{{ like.display_name }}</b>
             <form method="POST">
                 {% csrf_token %}
