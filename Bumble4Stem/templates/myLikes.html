@@ -39,14 +39,104 @@
                 margin-left: 50px;
                 font-size: 35px;
             }
+
+            .btn_contaniner{
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            margin-left: 10px;
+            }
+
+            button {
+                font-family: inherit;
+                font-size: 20px;
+                background: royalblue;
+                color: white;
+                padding: 0.7em 1em;
+                padding-left: 0.9em;
+                margin: 10px;
+                display: flex;
+                align-items: center;
+                border: none;
+                border-radius: 16px;
+                overflow: hidden;
+                transition: all 0.2s;
+                cursor: pointer;
+                }
+
+                button span {
+                display: block;
+                margin-left: 0.3em;
+                transition: all 0.3s ease-in-out;
+                }
+
+                button svg {
+                display: block;
+                transform-origin: center center;
+                transition: transform 0.3s ease-in-out;
+                }
+
+                button:hover .svg-wrapper {
+                animation: fly-1 0.6s ease-in-out infinite alternate;
+                }
+
+                button:hover svg {
+                transform: translateX(1.2em) scale(1.1);
+                }
+
+                button:hover span {
+                transform: translateX(5em);
+                }
+
+                button:active {
+                transform: scale(0.95);
+                }
+
+                @keyframes fly-1 {
+                from {
+                transform: translateY(0.1em);
+                }
+
+                to {
+                transform: translateY(-0.1em);
+                }
+                }
+                @media only screen and (max-width: 600px){
+                    .btn_contaniner{
+                        flex-direction: column !important;
+                    }
+                }
         </style>
         {% load static %}
 
         {% for like in likes %}
         <div class="cont">
-            <img class="avatar" src="{% static '1.jpg' %}" alt="pf">
+            <img class="avatar" src="/static/{{like.avatar_index}}.jpg" alt="pf" />
             <b id="name">{{ like.display_name }}</b>
-            <a href="/profile/{{ like.id }}" id="last"> <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 7L15 12L10 17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> </a>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="btn_contaniner">
+                <button type="submit" value="{{like.id}}" name="dislike">
+                  <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                      <svg viewBox="0 0 25 25"  width="24"
+                      height="24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>cross</title> <desc>Created with Sketch Beta.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage"> <g id="Icon-Set-Filled" sketch:type="MSLayerGroup" transform="translate(-469.000000, -1041.000000)" fill="#544f4f"> <path d="M487.148,1053.48 L492.813,1047.82 C494.376,1046.26 494.376,1043.72 492.813,1042.16 C491.248,1040.59 488.712,1040.59 487.148,1042.16 L481.484,1047.82 L475.82,1042.16 C474.257,1040.59 471.721,1040.59 470.156,1042.16 C468.593,1043.72 468.593,1046.26 470.156,1047.82 L475.82,1053.48 L470.156,1059.15 C468.593,1060.71 468.593,1063.25 470.156,1064.81 C471.721,1066.38 474.257,1066.38 475.82,1064.81 L481.484,1059.15 L487.148,1064.81 C488.712,1066.38 491.248,1066.38 492.813,1064.81 C494.376,1063.25 494.376,1060.71 492.813,1059.15 L487.148,1053.48" id="cross" sketch:type="MSShapeGroup"> </path> </g> </g> </g></svg>
+                    </div>
+                  </div>
+                  <span>Pass</span>
+                </button>
+                <button type="submit" value="{{like.id}}" name="like">
+                  <div class="svg-wrapper-1">
+                    <div class="svg-wrapper">
+                      <svg width="24"
+                      height="24" viewBox="0 0 24.00 24.00" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z" fill="#ff0000"></path> </g></svg>
+                    </div>
+                  </div>
+                  <span>Like</span>
+                </button>
+              </div>
+              </form>
+            <a href="/otherProfile/{{ like.id }}" id="last"> <svg class="arrow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M10 7L15 12L10 17" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> </a>
         </div>
         {% endfor %}
     

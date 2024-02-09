@@ -213,10 +213,53 @@
 
                     <div class="form-group">
                         <div>Choose Avatar</div>
-                        <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 10px;">
+                        <div style="padding-top: 10px;">
+                            <style>
+                                label { display: inline-block }
+label > input { 
+  visibility: hidden; 
+  position: absolute;
+}
+label > input + img { 
+  cursor:pointer;
+  margin: 5px;
+  border:2px solid transparent;
+}
+label > input:checked + img {
+  border:3px solid blue;
+}
+                            </style>
                             <label>
                                 <input type="radio" name="avatar_index" value="1" />
-                                <img src="/static/1.jpg" alt="Avatar 1" style="height: 50px; width: 50px; border: 0; border-radius: 100px;" />
+                                <img src="/static/1.jpg" alt="Avatar 1" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="2" />
+                                <img src="/static/1.jpg" alt="Avatar 2" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="3" />
+                                <img src="/static/1.jpg" alt="Avatar 3" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="4" />
+                                <img src="/static/1.jpg" alt="Avatar 4" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="5" />
+                                <img src="/static/1.jpg" alt="Avatar 5" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="6" />
+                                <img src="/static/1.jpg" alt="Avatar 6" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="7" />
+                                <img src="/static/1.jpg" alt="Avatar 7" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="8" />
+                                <img src="/static/1.jpg" alt="Avatar 8" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                         </div>
                     </div>

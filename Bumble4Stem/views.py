@@ -48,7 +48,6 @@ def matching(request):
         if user != None:
             return render(request, "matching.html", context={"fuser": user})
         else:
-            print(user)
             return render(request, "matching.html", context={"fuser": "user not found"})
     
     return render(request, "matching.html")
@@ -68,12 +67,30 @@ def myMatches(request):
 
 @login_required(login_url='/login')
 def myLikes(request):
-    request.session["user_id"] = 2
-    likes = Matches.objects.filter(m1id=request.session["user_id"]).values('m2id')
-    likes = [like['m2id'] for like in likes]
-    user2_list = Users.objects.filter(id__in=likes)
+    if request.method == "POST":
+        print(list(request.POST.keys())[1])
+        if list(request.POST.keys())[1] == "like":
+            m1id = Users.objects.filter(id=request.session["user_id"]).first()
+            m2id = Users.objects.filter(id=request.POST["like"]).first()
+            m = Matches(m1id=m1id, m2id=m2id)
+            m.save()
+            return HttpResponseRedirect("/myLikes")
 
-    return render(request, "myLikes.html", context={"likes": list(user2_list)})
+        if list(request.POST.keys())[1] == "dislike":
+            r1id = Users.objects.filter(id=request.session["user_id"]).first()
+            r2id = Users.objects.filter(id=request.POST["dislike"]).first()
+            r = Rejected(r1id=r1id, r2id=r2id)
+            r.save()
+            return HttpResponseRedirect("/myLikes")
+    if request.method == "GET":
+        matches= getMatches(request.session["user_id"])
+        rejects= getRejects(request.session["user_id"])
+        
+        likes = Matches.objects.filter(m2id=request.session["user_id"]).exclude(m1id__in=matches).exclude(m1id__in=rejects).values('m1id')
+        likes = [like['m1id'] for like in likes]
+        user2_list = Users.objects.filter(id__in=likes)
+
+        return render(request, "myLikes.html", context={"likes": list(user2_list)})
 
 def login(request):
     """Log user in"""
@@ -201,3 +218,17 @@ def getRandomUser(id):
     user = Users.objects.exclude(id=id).exclude(id__in=excluded_user_ids).order_by('?').first()
 
     return user
+
+def getMatches(id):
+    likes = Matches.objects.filter(m1id=id).values('m2id')
+    matches = []
+    for like in likes:
+        m = Matches.objects.filter(Q(m1id=like["m2id"], m2id=id)
+        ).values('m2id')
+        if m.exists():
+            matches.append(like["m2id"])
+    return matches
+
+def getRejects(id):
+    rejects = Rejected.objects.filter(r1id=id).values('r2id')
+    return [reject['r2id'] for reject in rejects]
