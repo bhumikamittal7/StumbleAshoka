@@ -8,3 +8,4 @@ sqlparse==0.4.2
 tinytag==1.10.1
 virtualenv==20.24.5
 gunicorn==21.2.0
+whitenoise==6.6.0
