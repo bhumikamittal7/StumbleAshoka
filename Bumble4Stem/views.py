@@ -238,7 +238,6 @@ def getRandomUser(id):
 
     # Get a random user
     user = Users.objects.exclude(id=id).exclude(id__in=excluded_user_ids).order_by('?').first()
-
     return user
 
 def getMatches(id):
