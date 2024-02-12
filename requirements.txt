@@ -7,3 +7,4 @@ requests==2.27.1
 sqlparse==0.4.2
 tinytag==1.10.1
 virtualenv==20.24.5
+gunicorn==21.2.0
