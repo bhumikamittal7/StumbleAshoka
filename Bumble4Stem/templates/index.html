@@ -5,74 +5,39 @@
 {% endblock %}
 
 {% block main %}
-    <style>
-
-        .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #1E1E1E; /* Black text on yellow background */
-        }
-
-        .box {
-            background-color: #1E1E1E; /* Black box background */
-            color: #F9F7EB; /* Light yellow text */
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px;
-            text-align: center;
-        }
-
-        .box img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        section {
-            padding: 50px 20px; /* Add padding to sections */
-            text-align: center;
-        }
-    </style>
-    <title>Stumble App</title>
+<style>
+    main{
+       padding: 0px;
+       text-align: center;
+    }
+    header{
+        margin:0px;
+    }
+    .head {
+      background-color: #FFC107; /* yellow */
+      padding: 20px;
+    }
+    .cont1 {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    .main-text {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+    .sub-text {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
-
-<section id="about">
-    <div class="box">
-        <h1>About Stumble</h1>
-        <p>Stumble is a revolutionary platform designed to connect researchers and facilitate collaborative efforts in various fields. Whether you are a scientist, academic, or industry professional, Stumble brings like-minded individuals together to advance research and innovation.</p>
-        <!-- <img src="about-image.jpg" alt="About Stumble Image"> -->
-    </div>
-</section>
-
-<section id="features">
-    <div class="box">
-        <h1>Key Features</h1>
-        <p>Stumble offers a range of features to enhance your research collaboration experience:</p>
-        <ul>
-            <li>Advanced Interest Matching</li>
-            <li>Real-time Project Updates</li>
-            <li>Seamless Communication Tools</li>
-            <!-- Add more features as needed -->
-        </ul>
-    </div>
-</section>
-
-<section id="how-it-works">
-    <div class="box">
-        <h1>How It Works</h1>
-        <p>Stumble makes connecting with researchers and collaborating on projects easy. Here's how it works:</p>
-        <ol>
-            <li>Sign up and create your profile</li>
-            <li>Specify your research interests</li>
-            <li>Receive personalized matches</li>
-        </ol>
-    </div>
-</section>
-
+  <header class="head">
+    <h1>Stumble</h1>
+  </header>
+  <div class="cont1">
+    <p class="main-text">Today, most people find their first big break through their network. We created Stumble so we can connect with each other, share, and learn. Networking shouldn’t feel so hard or, worse, uncomfortable. We’ve made it so you can make life-changing connections at your own pace, on your own terms.</p>
+    <p class="sub-text">Stumble, an app that's all about finding your perfect research match on campus! Well, while we can't promise to fix your romantic affairs, we can certainly sort out your academic ones! Modeled after Bumble, we are delighted to launch Stumble, an app that puts a twist on traditional matchmaking by helping you connect with fellow students who share academic and research interests. Say goodbye to dry spells and hello to exciting collaborations!</p>
+  </div>
 {% endblock %}

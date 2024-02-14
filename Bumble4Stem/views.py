@@ -120,7 +120,6 @@ def register(request):
         display_name = request.POST['display_name']
         age = request.POST['age']
         batch = request.POST['batch']
-        phn_no = request.POST['phn_no']
         pronouns = request.POST['pronouns']
         major = request.POST['major']
         research_interests = request.POST['research_interests']
@@ -184,7 +183,6 @@ def register(request):
                 major=major,
                 age=age,
                 batch=batch,
-                phn_no=phn_no,
                 pronouns=pronouns,
                 research_interests=research_interests,
                 bio=bio,
