@@ -1,0 +1,206 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    
+
+<style>
+
+    #edit-card {
+        width: 350px;
+        border-radius: 25px;
+        margin: 50px auto;
+
+    }
+
+     #id_email {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_password1 {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_password2 {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_name {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_age {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_batch {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_major {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_phn_no {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_pronouns {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_research_interests {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+    #id_bio {
+        border-radius: 30px;
+        background-color: #ebf0fc;
+        border-color: #ebf0fc;
+        color: #9da3b0;
+    }
+
+    #button {
+        border-radius: 30px;
+
+    }
+
+    #btn {
+        position: absolute;
+        bottom: -35px;
+        padding: 5px;
+        margin: 0px 55px;
+        align-items: center;
+        border-radius: 5px;
+
+    }
+
+    #container {
+        margin-top: 25px;
+    }
+
+    .btn-circle.btn-sm {
+        width: 40px;
+        height: 40px;
+        padding: 2px 0px;
+        border-radius: 25px;
+        font-size: 14px;
+        text-align: center;
+
+        margin: 8px;
+    }
+        label { display: inline-block }
+
+        label > input { 
+        visibility: hidden; 
+        position: absolute;
+        }
+        label > input + img { 
+        cursor:pointer;
+        margin: 5px;
+        border:2px solid transparent;
+        }
+        label > input:checked + img {
+        border:3px solid blue;
+        }
+        </style>
+        <div id="edit-card" class="card">
+            <div class="card-body">
+                <h2 class="text-center">Edit Profile</h2>
+                <br>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div>Choose Avatar</div>
+                        <div style="padding-top: 10px;">
+                            <label>
+                                <input type="radio" name="avatar_index" value="1" {% if fuser.avatar_index == 1 %} checked {% endif %} required/>
+                                <img src="/static/1.png" alt="Avatar 1" style="height: 50px; width: 50px; border-radius: 100px;"/>
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="2" {% if fuser.avatar_index == 2 %} checked {% endif %}/>
+                                <img src="/static/2.png" alt="Avatar 2" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="3" {% if fuser.avatar_index == 3 %} checked {% endif %}/>
+                                <img src="/static/3.png" alt="Avatar 3" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="4" {% if fuser.avatar_index == 4 %} checked {% endif %}/>
+                                <img src="/static/4.png" alt="Avatar 4" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="5" {% if fuser.avatar_index == 5 %} checked {% endif %}/>
+                                <img src="/static/5.png" alt="Avatar 5" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="6" {% if fuser.avatar_index == 6 %} checked {% endif %}/>
+                                <img src="/static/6.png" alt="Avatar 6" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="7" {% if fuser.avatar_index == 7 %} checked {% endif %}/>
+                                <img src="/static/7.png" alt="Avatar 7" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                            <label>
+                                <input type="radio" name="avatar_index" value="8" {% if fuser.avatar_index == 8 %} checked {% endif %}/>
+                                <img src="/static/8.png" alt="Avatar 8" style="height: 50px; width: 50px; border-radius: 100px;" />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Age" value="{{ fuser.age }}" type="number" name="age" required id="id_age">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter batch" value="{{ fuser.batch }}" type="text" name="batch" required id="id_batch">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Select Major" list="major" value="{{ fuser.major }}" name="major" required id="id_major">
+                        <datalist id="major">
+                            <option value="Physics">
+                            <option value="Biology">
+                            <option value="Computer Science">
+                            <option value="Chemistry">
+                            <option value="Mathematics">
+                          </datalist>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Pronouns" value="{{ fuser.pronouns }}" type="text" name="pronouns" required id="id_pronouns">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="Enter Research Interests" value="{{ fuser.research_interests }}" type="text" name="research_interests" required id="id_research_interests">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Enter Bio" id="id_bio" name="bio" id="" cols="30" rows="6" required>{{fuser.bio}}</textarea>
+                    </div>
+                    
+                    <button type="submit" id="button" class="btn btn-primary deep-purple btn-block ">Submit</button>
+                </form>
+            </div>
+            <div>
+
+        
+{% endblock %}

@@ -68,7 +68,6 @@ def myMatches(request):
 @login_required(login_url='/login')
 def myLikes(request):
     if request.method == "POST":
-        print(list(request.POST.keys())[1])
         if list(request.POST.keys())[1] == "like":
             m1id = Users.objects.filter(id=request.session["user_id"]).first()
             m2id = Users.objects.filter(id=request.POST["like"]).first()
@@ -91,6 +90,33 @@ def myLikes(request):
         user2_list = Users.objects.filter(id__in=likes)
 
         return render(request, "myLikes.html", context={"likes": list(user2_list)})
+
+@login_required(login_url='/login')
+def editProfile(request):
+    if request.method == "POST":
+        avatar_index = request.POST['avatar_index']
+        age = request.POST['age']
+        batch = request.POST['batch']
+        pronouns = request.POST['pronouns']
+        major = request.POST['major']
+        research_interests = request.POST['research_interests']
+        bio = request.POST['bio']
+        id = request.session['user_id']
+        user = Users.objects.get(id=id)
+        user.avatar_index = avatar_index
+        user.age = age
+        user.batch = batch
+        user.pronouns = pronouns
+        user.major = major
+        user.research_interests = research_interests
+        user.bio = bio
+        user.save(update_fields=["avatar_index", 'age', 'batch', 'pronouns', 'major', 'research_interests', 'bio'])
+        return HttpResponseRedirect("/myProfile")
+    if request.method == "GET":
+        user = Users.objects.filter(id=request.session["user_id"]).first()
+        return render(request, "editProfile.html", context={"fuser": user})
+
+
 
 def login(request):
     """Log user in"""
@@ -192,8 +218,19 @@ def register(request):
             request.session["user_id"] = rows.id
             auth_login(request, user)
             return HttpResponseRedirect("/")
-        messages.error(
-            request, "Unsuccessful registration. Invalid information.")
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+        return render(request, "register.html", context={
+                    "display_name": display_name,
+                    "age": age,
+                    "batch": batch,
+                    "phn_no": phn_no,
+                    "major": major,
+                    "pronouns": pronouns,
+                    "research_interests": research_interests,
+                    "bio": bio,
+                    "email": email,
+                    "avatar_index": avatar_index
+                    })
     form = NewUserForm()
     return render(request, "register.html", context={"register_form": form})
 

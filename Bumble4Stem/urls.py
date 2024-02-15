@@ -11,7 +11,8 @@ urlpatterns = [
     path("myMatches/", views.myMatches, name="myMatches"),
     path("myLikes/", views.myLikes, name="myLikes"),
     path("myProfile/", views.profile, name="profile"),
-    path("otherProfile/<int:id>", views.otherProfile, name="otherProfile")
+    path("otherProfile/<int:id>", views.otherProfile, name="otherProfile"),
+    path("editProfile/", views.editProfile, name="editProfile"),
     
 ]
 
