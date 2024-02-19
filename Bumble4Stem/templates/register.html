@@ -173,42 +173,42 @@
                         <input class="form-control" placeholder="Enter Research Interests" value="{{ research_interests }}" type="text" name="research_interests" required id="id_research_interests">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Enter Bio" id="id_bio" name="bio" id="" cols="30" rows="6" required>{{bio}}</textarea>
+                        <textarea class="form-control" maxlength="300" placeholder="Enter Bio" id="id_bio" name="bio" id="" required>{{bio}}</textarea>
                     </div>
 
                     <div class="form-group">
                         <div>Choose Avatar</div>
                         <div style="padding-top: 10px;">
                             <label>
-                                <input type="radio" name="avatar_index" value="1" required/>
+                                <input type="radio" name="avatar_index" value="1" {% if fuser.avatar_index == 1 %} checked {% endif %} required/>
                                 <img src="/static/1.png" alt="Avatar 1" style="height: 50px; width: 50px; border-radius: 100px;"/>
                             </label>
                             <label>
-                                <input type="radio" name="avatar_index" value="2" />
+                                <input type="radio" name="avatar_index" value="2" {% if fuser.avatar_index == 2 %} checked {% endif %}/>
                                 <img src="/static/2.png" alt="Avatar 2" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                             <label>
-                                <input type="radio" name="avatar_index" value="3" />
+                                <input type="radio" name="avatar_index" value="3" {% if fuser.avatar_index == 3 %} checked {% endif %}/>
                                 <img src="/static/3.png" alt="Avatar 3" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                             <label>
-                                <input type="radio" name="avatar_index" value="4" />
+                                <input type="radio" name="avatar_index" value="4" {% if fuser.avatar_index == 4 %} checked {% endif %}/>
                                 <img src="/static/4.png" alt="Avatar 4" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                             <label>
-                                <input type="radio" name="avatar_index" value="5" />
+                                <input type="radio" name="avatar_index" value="5" {% if fuser.avatar_index == 5 %} checked {% endif %}/>
                                 <img src="/static/5.png" alt="Avatar 5" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                             <label>
-                                <input type="radio" name="avatar_index" value="6" />
+                                <input type="radio" name="avatar_index" value="6" {% if fuser.avatar_index == 6 %} checked {% endif %}/>
                                 <img src="/static/6.png" alt="Avatar 6" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                             <label>
-                                <input type="radio" name="avatar_index" value="7" />
+                                <input type="radio" name="avatar_index" value="7" {% if fuser.avatar_index == 7 %} checked {% endif %}/>
                                 <img src="/static/7.png" alt="Avatar 7" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                             <label>
-                                <input type="radio" name="avatar_index" value="8" />
+                                <input type="radio" name="avatar_index" value="8" {% if fuser.avatar_index == 8 %} checked {% endif %}/>
                                 <img src="/static/8.png" alt="Avatar 8" style="height: 50px; width: 50px; border-radius: 100px;" />
                             </label>
                         </div>
@@ -254,7 +254,7 @@
                         <input class="form-control" placeholder="Enter Research Interests" type="text" name="research_interests" required id="id_research_interests">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Enter Bio" id="id_bio" name="bio" id="" cols="30" rows="6" required></textarea>
+                        <textarea class="form-control" maxlength="300" placeholder="Enter Bio (300 characters)" id="id_bio" name="bio" id="" cols="30" rows="6" required></textarea>
                     </div>
 
                     <div class="form-group">

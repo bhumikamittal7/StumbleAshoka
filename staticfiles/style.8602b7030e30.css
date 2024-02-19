@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:400,600");
+:root {
+  font-size: 16px;
+  font-family: 'Open Sans';
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --transition-speed: 600ms;
+}
+
+body {
+  color: black;
+  background-color: white;
+  font-family: "Work Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  font-weight: 800;
+}
+
+main {
+  margin-left: 5rem;
+  padding: 1rem;
+}
+
+.cnavbar {
+  position: fixed;
+  background-color: var(--bg-primary);
+  transition: width 600ms ease;
+  z-index: 10;
+}
+.cnav-icon {
+  width: 50px;
+  height: 50px;
+}
+.cnavbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.cnav-item {
+  width: 100%;
+}
+
+.cnav-item_last {
+  margin-top: auto;
+}
+
+.cnav-link {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: var(--transition-speed);
+}
+
+.cnav-link:hover {
+  filter: grayscale(0%) opacity(1);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.clink-text {
+  display: none;
+  margin-left: 1rem;
+}
+
+.cnav-link svg {
+  width: 2rem;
+  min-width: 2rem;
+  scale: 2.5;
+  margin: 0 1.5rem;
+}
+
+.clogo {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 1.5rem;
+  letter-spacing: 0.3ch;
+  width: 100%;
+}
+
+.clogo svg {
+  transform: rotate(0deg);
+  transition: var(--transition-speed);
+}
+
+.clogo-img{
+  width: 80px;
+  height: 80px;
+  transition: var(--transition-speed);
+
+}
+
+.cnavbar:hover .clogo-img{
+  transform: translate(105%, 0%);
+  
+}
+
+.cnavbar:hover .clogo svg {
+  transform: rotate(-180deg);
+}
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .cnavbar {
+    bottom: 0;
+    width: 100vw;
+    height: 5rem;
+  }
+
+  .clogo {
+    display: none;
+  }
+
+  .cnavbar-nav {
+    flex-direction: row;
+  }
+
+  .cnav-link {
+    justify-content: center;
+  }
+
+  main{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5rem !important;
+    }
+}
+
+/* Large Screen only */
+@media only screen and (min-width:600px){
+.cnavbar{
+  top: 0;
+  width: 5rem;
+  height: 100vh;
+}
+
+.cnavbar:hover{
+  width: 16rem;
+}
+
+.cnavbar:hover .clink-text {
+  display: block;
+}
+}

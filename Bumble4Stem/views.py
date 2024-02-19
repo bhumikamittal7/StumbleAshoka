@@ -155,6 +155,20 @@ def register(request):
         email = request.POST['email']
         avatar_index = request.POST['avatar_index']
         users = Users.objects.values('email')
+        if len(bio) > 300:
+            messages.error(
+                    request, "Bio should be max 300 characters")
+            return render(request, "register.html", context={
+                "display_name": display_name,
+                "age": age,
+                "batch": batch,
+                "major": major,
+                "pronouns": pronouns,
+                "research_interests": research_interests,
+                "bio": bio,
+                "email": email,
+                "avatar_index": avatar_index
+                })
         for user in users:
             if user['email'] == email:
                 messages.error(
@@ -163,7 +177,6 @@ def register(request):
                     "display_name": display_name,
                     "age": age,
                     "batch": batch,
-                    "phn_no": phn_no,
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
@@ -178,7 +191,6 @@ def register(request):
                     "display_name": display_name,
                     "age": age,
                     "batch": batch,
-                    "phn_no": phn_no,
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
@@ -193,7 +205,6 @@ def register(request):
                     "display_name": display_name,
                     "age": age,
                     "batch": batch,
-                    "phn_no": phn_no,
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
@@ -223,7 +234,6 @@ def register(request):
                     "display_name": display_name,
                     "age": age,
                     "batch": batch,
-                    "phn_no": phn_no,
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,

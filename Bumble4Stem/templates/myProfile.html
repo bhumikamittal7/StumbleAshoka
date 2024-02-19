@@ -44,6 +44,10 @@
     }
     .large{
         width: 70% !important;
+        overflow: auto;
+    }
+    .bio{
+        padding: 10px;
     }
 
     @media only screen and (max-width: 600px) {
@@ -51,12 +55,16 @@
             width: 90vw;
             font-size: 1.2rem;
             margin-top:20px;
+            margin-bottom: 5rem;
         }
         .info_cont{
             width: 70%;
         }
         .large{
-            width: 90% !important;
+            width: 95% !important;
+        }
+        .bio{
+            overflow: auto;
         }
     }
     #btn{
@@ -94,7 +102,7 @@
     <div class="info">{{ fuser.research_interests }}</div>
     </div>
     <span>Bio</span>
-    <div class="info_cont large">
+    <div class="info_cont large bio">
     <div class="info">{{ fuser.bio }}</div>
     </div>
     <a href="/editProfile"><button id="btn" class="btn btn-primary deep-purple btn-block large"> Edit Profile </button></a>

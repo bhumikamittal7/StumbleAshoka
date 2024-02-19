@@ -194,7 +194,7 @@
                         <input class="form-control" placeholder="Enter Research Interests" value="{{ fuser.research_interests }}" type="text" name="research_interests" required id="id_research_interests">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Enter Bio" id="id_bio" name="bio" id="" cols="30" rows="6" required>{{fuser.bio}}</textarea>
+                        <textarea class="form-control" maxlength="300" placeholder="Enter Bio (max 300 characters)" id="id_bio" name="bio" id="" required>{{fuser.bio}}</textarea>
                     </div>
                     
                     <button type="submit" id="button" class="btn btn-primary deep-purple btn-block ">Submit</button>
