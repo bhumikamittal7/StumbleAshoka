@@ -95,7 +95,6 @@ def myLikes(request):
 def editProfile(request):
     if request.method == "POST":
         avatar_index = request.POST['avatar_index']
-        age = request.POST['age']
         batch = request.POST['batch']
         pronouns = request.POST['pronouns']
         major = request.POST['major']
@@ -105,20 +104,18 @@ def editProfile(request):
         Q3 = request.POST['Q3']
         id = request.session['user_id']
 
-        Q1 = "Q1:"+ Q1
-        Q2 = "Q2:"+ Q2
-        Q3 = "Q3:"+ Q3
+        Q2 = " "+ Q2
+        Q3 = " "+ Q3
         bio = Q1 + Q2 + Q3
 
         user = Users.objects.get(id=id)
         user.avatar_index = avatar_index
-        user.age = age
         user.batch = batch
         user.pronouns = pronouns
         user.major = major
         user.research_interests = research_interests
         user.bio = bio
-        user.save(update_fields=["avatar_index", 'age', 'batch', 'pronouns', 'major', 'research_interests', 'bio'])
+        user.save(update_fields=["avatar_index", 'batch', 'pronouns', 'major', 'research_interests', 'bio'])
         return HttpResponseRedirect("/myProfile")
     if request.method == "GET":
         user = Users.objects.filter(id=request.session["user_id"]).first()
@@ -163,7 +160,6 @@ def register(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         display_name = request.POST['display_name']
-        age = request.POST['age']
         batch = request.POST['batch']
         pronouns = request.POST['pronouns']
         major = request.POST['major']
@@ -182,7 +178,6 @@ def register(request):
                     request, "Account with email ID already exists")
                 return render(request, "register.html", context={
                     "display_name": display_name,
-                    "age": age,
                     "batch": batch,
                     "major": major,
                     "pronouns": pronouns,
@@ -198,7 +193,6 @@ def register(request):
                 request, "Passwords do not match")
             return render(request, "register.html", context={
                     "display_name": display_name,
-                    "age": age,
                     "batch": batch,
                     "major": major,
                     "pronouns": pronouns,
@@ -214,7 +208,6 @@ def register(request):
                 request, "Passwords should have at least 8 characters")
             return render(request, "register.html", context={
                     "display_name": display_name,
-                    "age": age,
                     "batch": batch,
                     "major": major,
                     "pronouns": pronouns,
@@ -226,16 +219,14 @@ def register(request):
                     "avatar_index": avatar_index
                     })
         if form.is_valid():
-            Q1 = "Q1: "+ Q1
-            Q2 = " Q2: "+ Q2
-            Q3 = " Q3: "+ Q3
+            Q2 = " "+ Q2
+            Q3 = " "+ Q3
             bio = Q1 + Q2 + Q3
             user = form.save()
             f = Users( 
                 email=email,
                 display_name=display_name,
                 major=major,
-                age=age,
                 batch=batch,
                 pronouns=pronouns,
                 research_interests=research_interests,
@@ -249,7 +240,6 @@ def register(request):
         messages.error(request, "Unsuccessful registration. Invalid information.")
         return render(request, "register.html", context={
                     "display_name": display_name,
-                    "age": age,
                     "batch": batch,
                     "major": major,
                     "pronouns": pronouns,

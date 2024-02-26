@@ -7,7 +7,6 @@ class Users(models.Model):
     email =  models.CharField(max_length=255, unique=True, default="")
     display_name = models.CharField(max_length=255)
     major = models.CharField(max_length=255, default="Computer Science")
-    age = models.IntegerField(default=0)
     batch = models.CharField(max_length=255)
     pronouns = models.CharField(max_length=255)
     research_interests = models.TextField()
