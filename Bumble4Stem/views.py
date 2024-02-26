@@ -100,8 +100,16 @@ def editProfile(request):
         pronouns = request.POST['pronouns']
         major = request.POST['major']
         research_interests = request.POST['research_interests']
-        bio = request.POST['bio']
+        Q1 = request.POST['Q1']
+        Q2 = request.POST['Q2']
+        Q3 = request.POST['Q3']
         id = request.session['user_id']
+
+        Q1 = "Q1:"+ Q1
+        Q2 = "Q2:"+ Q2
+        Q3 = "Q3:"+ Q3
+        bio = Q1 + Q2 + Q3
+
         user = Users.objects.get(id=id)
         user.avatar_index = avatar_index
         user.age = age
@@ -114,7 +122,18 @@ def editProfile(request):
         return HttpResponseRedirect("/myProfile")
     if request.method == "GET":
         user = Users.objects.filter(id=request.session["user_id"]).first()
-        return render(request, "editProfile.html", context={"fuser": user})
+        bio = user.bio
+        split_bio = bio.split("Q1: ")[1:]
+
+        Q1 = split_bio[0].split("Q2: ")[0]
+        Q2 = split_bio[0].split("Q2: ")[1].split("Q3: ")[0].strip()
+        Q3 = split_bio[0].split("Q3: ")[1].strip()
+        return render(request, "editProfile.html", context={
+            "fuser": user,
+            "Q1": Q1,
+            "Q2": Q2,
+            "Q3": Q3
+            })
 
 
 
@@ -149,26 +168,14 @@ def register(request):
         pronouns = request.POST['pronouns']
         major = request.POST['major']
         research_interests = request.POST['research_interests']
-        bio = request.POST['bio']
+        Q1 = request.POST['Q1']
+        Q2 = request.POST['Q2']
+        Q3 = request.POST['Q3']
         pass1 = request.POST['password1']
         pass2 = request.POST['password2']
         email = request.POST['email']
         avatar_index = request.POST['avatar_index']
         users = Users.objects.values('email')
-        if len(bio) > 300:
-            messages.error(
-                    request, "Bio should be max 300 characters")
-            return render(request, "register.html", context={
-                "display_name": display_name,
-                "age": age,
-                "batch": batch,
-                "major": major,
-                "pronouns": pronouns,
-                "research_interests": research_interests,
-                "bio": bio,
-                "email": email,
-                "avatar_index": avatar_index
-                })
         for user in users:
             if user['email'] == email:
                 messages.error(
@@ -180,7 +187,9 @@ def register(request):
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
-                    "bio": bio,
+                    "Q1": Q1,
+                    "Q2": Q2,
+                    "Q3": Q3,
                     "email": email,
                     "avatar_index": avatar_index
                     })
@@ -194,7 +203,9 @@ def register(request):
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
-                    "bio": bio,
+                    "Q1": Q1,
+                    "Q2": Q2,
+                    "Q3": Q3,
                     "email": email,
                     "avatar_index": avatar_index
                     })
@@ -208,11 +219,17 @@ def register(request):
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
-                    "bio": bio,
+                    "Q1": Q1,
+                    "Q2": Q2,
+                    "Q3": Q3,
                     "email": email,
                     "avatar_index": avatar_index
                     })
         if form.is_valid():
+            Q1 = "Q1: "+ Q1
+            Q2 = " Q2: "+ Q2
+            Q3 = " Q3: "+ Q3
+            bio = Q1 + Q2 + Q3
             user = form.save()
             f = Users( 
                 email=email,
@@ -237,7 +254,9 @@ def register(request):
                     "major": major,
                     "pronouns": pronouns,
                     "research_interests": research_interests,
-                    "bio": bio,
+                    "Q1": Q1,
+                    "Q2": Q2,
+                    "Q3": Q3,
                     "email": email,
                     "avatar_index": avatar_index
                     })
