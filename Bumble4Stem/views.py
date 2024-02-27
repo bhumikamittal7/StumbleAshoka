@@ -104,8 +104,9 @@ def editProfile(request):
         Q3 = request.POST['Q3']
         id = request.session['user_id']
 
-        Q2 = " "+ Q2
-        Q3 = " "+ Q3
+        Q1 = "Q1: "+ Q1
+        Q2 = "Q2: "+ Q2
+        Q3 = "Q3: "+ Q3
         bio = Q1 + Q2 + Q3
 
         user = Users.objects.get(id=id)
@@ -120,11 +121,14 @@ def editProfile(request):
     if request.method == "GET":
         user = Users.objects.filter(id=request.session["user_id"]).first()
         bio = user.bio
-        split_bio = bio.split("Q1: ")[1:]
+        split_bio = bio.split("Q1:")[1:]
 
-        Q1 = split_bio[0].split("Q2: ")[0]
-        Q2 = split_bio[0].split("Q2: ")[1].split("Q3: ")[0].strip()
-        Q3 = split_bio[0].split("Q3: ")[1].strip()
+        Q1 = split_bio[0].split("Q2:")[0]
+        Q2 = split_bio[0].split("Q2:")[1].split("Q3:")[0]
+        Q3 = split_bio[0].split("Q3:")[1]
+        Q1 = Q1.strip()
+        Q2 = Q2.strip()
+        Q3 = Q3.strip()
         return render(request, "editProfile.html", context={
             "fuser": user,
             "Q1": Q1,
@@ -219,8 +223,9 @@ def register(request):
                     "avatar_index": avatar_index
                     })
         if form.is_valid():
-            Q2 = " "+ Q2
-            Q3 = " "+ Q3
+            Q1 = "Q1: "+ Q1
+            Q2 = "Q2: "+ Q2
+            Q3 = "Q3: "+ Q3
             bio = Q1 + Q2 + Q3
             user = form.save()
             f = Users( 
