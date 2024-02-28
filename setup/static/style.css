@@ -136,6 +136,10 @@ main {
     width: 100%;
     height: 100%;
     }
+  .cnav-icon{
+    width: 35px;
+    height: 35px;
+  }
 }
 
 /* Large Screen only */
