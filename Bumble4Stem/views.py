@@ -105,8 +105,8 @@ def editProfile(request):
         id = request.session['user_id']
 
         Q1 = "Favorite STEM Media: "+ Q1
-        Q2 = " Favorite STEM Professor at Ashoka: "+ Q2
-        Q3 = " Anything else about you: "+ Q3
+        Q2 = ", Favorite STEM Professor at Ashoka: "+ Q2
+        Q3 = ", Anything else about you: "+ Q3
         bio = Q1 + Q2 + Q3
 
         user = Users.objects.get(id=id)
@@ -224,8 +224,8 @@ def register(request):
                     })
         if form.is_valid():
             Q1 = "Favorite STEM Media: "+ Q1
-            Q2 = " Favorite STEM Professor at Ashoka: "+ Q2
-            Q3 = " Anything else about you: "+ Q3
+            Q2 = ", Favorite STEM Professor at Ashoka: "+ Q2
+            Q3 = ", Anything else about you: "+ Q3
             bio = Q1 + Q2 + Q3
             user = form.save()
             f = Users( 
