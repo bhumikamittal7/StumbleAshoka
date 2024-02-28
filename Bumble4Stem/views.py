@@ -99,14 +99,14 @@ def editProfile(request):
         pronouns = request.POST['pronouns']
         major = request.POST['major']
         research_interests = request.POST['research_interests']
-        Q1 = request.POST['Q1']
-        Q2 = request.POST['Q2']
-        Q3 = request.POST['Q3']
+        Q1 = request.POST['Q1'].strip()
+        Q2 = request.POST['Q2'].strip()
+        Q3 = request.POST['Q3'].strip()
         id = request.session['user_id']
 
         Q1 = "Q1: "+ Q1
-        Q2 = "Q2: "+ Q2
-        Q3 = "Q3: "+ Q3
+        Q2 = " Q2: "+ Q2
+        Q3 = " Q3: "+ Q3
         bio = Q1 + Q2 + Q3
 
         user = Users.objects.get(id=id)
@@ -168,9 +168,9 @@ def register(request):
         pronouns = request.POST['pronouns']
         major = request.POST['major']
         research_interests = request.POST['research_interests']
-        Q1 = request.POST['Q1']
-        Q2 = request.POST['Q2']
-        Q3 = request.POST['Q3']
+        Q1 = request.POST['Q1'].strip()
+        Q2 = request.POST['Q2'].strip()
+        Q3 = request.POST['Q3'].strip()
         pass1 = request.POST['password1']
         pass2 = request.POST['password2']
         email = request.POST['email']
@@ -224,8 +224,8 @@ def register(request):
                     })
         if form.is_valid():
             Q1 = "Q1: "+ Q1
-            Q2 = "Q2: "+ Q2
-            Q3 = "Q3: "+ Q3
+            Q2 = " Q2: "+ Q2
+            Q3 = " Q3: "+ Q3
             bio = Q1 + Q2 + Q3
             user = form.save()
             f = Users( 
