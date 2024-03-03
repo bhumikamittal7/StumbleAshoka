@@ -88,7 +88,7 @@ def myLikes(request):
         likes = Matches.objects.filter(m2id=request.session["user_id"]).exclude(m1id__in=matches).exclude(m1id__in=rejects).values('m1id')
         likes = [like['m1id'] for like in likes]
         user2_list = Users.objects.filter(id__in=likes)
-
+        
         return render(request, "myLikes.html", context={"likes": list(user2_list)})
 
 @login_required(login_url='/login')
@@ -99,15 +99,10 @@ def editProfile(request):
         pronouns = request.POST['pronouns']
         major = request.POST['major']
         research_interests = request.POST['research_interests']
-        Q1 = request.POST['Q1'].strip()
-        Q2 = request.POST['Q2'].strip()
-        Q3 = request.POST['Q3'].strip()
+        Q1 = request.POST['Q1']
+        Q2 = request.POST['Q2']
+        Q3 = request.POST['Q3']
         id = request.session['user_id']
-
-        Q1 = "Favorite STEM Media: "+ Q1
-        Q2 = ", Favorite STEM Professor at Ashoka: "+ Q2
-        Q3 = ", Anything else about you: "+ Q3
-        bio = Q1 + Q2 + Q3
 
         user = Users.objects.get(id=id)
         user.avatar_index = avatar_index
@@ -115,25 +110,15 @@ def editProfile(request):
         user.pronouns = pronouns
         user.major = major
         user.research_interests = research_interests
-        user.bio = bio
-        user.save(update_fields=["avatar_index", 'batch', 'pronouns', 'major', 'research_interests', 'bio'])
+        user.Q1 = Q1
+        user.Q2 = Q2
+        user.Q3 = Q3
+        user.save(update_fields=["avatar_index", 'batch', 'pronouns', 'major', 'research_interests', 'Q1', 'Q2', 'Q3'])
         return HttpResponseRedirect("/myProfile")
     if request.method == "GET":
         user = Users.objects.filter(id=request.session["user_id"]).first()
-        bio = user.bio
-        split_bio = bio.split("Favorite STEM Media:")[1:]
-
-        Q1 = split_bio[0].split("Favorite STEM Professor at Ashoka:")[0]
-        Q2 = split_bio[0].split("Favorite STEM Professor at Ashoka:")[1].split("Anything else about you:")[0]
-        Q3 = split_bio[0].split("Anything else about you:")[1]
-        Q1 = Q1.strip()
-        Q2 = Q2.strip()
-        Q3 = Q3.strip()
         return render(request, "editProfile.html", context={
-            "fuser": user,
-            "Q1": Q1,
-            "Q2": Q2,
-            "Q3": Q3
+            "fuser": user
             })
 
 
@@ -168,9 +153,9 @@ def register(request):
         pronouns = request.POST['pronouns']
         major = request.POST['major']
         research_interests = request.POST['research_interests']
-        Q1 = request.POST['Q1'].strip()
-        Q2 = request.POST['Q2'].strip()
-        Q3 = request.POST['Q3'].strip()
+        Q1 = request.POST['Q1']
+        Q2 = request.POST['Q2']
+        Q3 = request.POST['Q3']
         pass1 = request.POST['password1']
         pass2 = request.POST['password2']
         email = request.POST['email']
@@ -223,10 +208,6 @@ def register(request):
                     "avatar_index": avatar_index
                     })
         if form.is_valid():
-            Q1 = "Favorite STEM Media: "+ Q1
-            Q2 = ", Favorite STEM Professor at Ashoka: "+ Q2
-            Q3 = ", Anything else about you: "+ Q3
-            bio = Q1 + Q2 + Q3
             user = form.save()
             f = Users( 
                 email=email,
@@ -235,14 +216,16 @@ def register(request):
                 batch=batch,
                 pronouns=pronouns,
                 research_interests=research_interests,
-                bio=bio,
+                Q1=Q1,
+                Q2=Q2,
+                Q3=Q3,
                 avatar_index=avatar_index)
             f.save()
             rows = Users.objects.get(email=user.email)
             request.session["user_id"] = rows.id
             auth_login(request, user)
             return HttpResponseRedirect("/")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
+        messages.error(request, "Follow the password rules")
         return render(request, "register.html", context={
                     "display_name": display_name,
                     "batch": batch,

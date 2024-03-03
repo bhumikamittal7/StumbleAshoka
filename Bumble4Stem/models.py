@@ -10,7 +10,9 @@ class Users(models.Model):
     batch = models.CharField(max_length=255)
     pronouns = models.CharField(max_length=255)
     research_interests = models.TextField()
-    bio = models.TextField()
+    Q1 = models.TextField(max_length=100, default="")
+    Q2 = models.TextField(max_length=100, default="")
+    Q3 = models.TextField(max_length=100, default="")
 
 
 class Matches(models.Model):
