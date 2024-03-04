@@ -132,9 +132,9 @@ def login(request):
         if form.is_valid():
             email = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            print('request sent')
             ct = datetime.datetime.now()
-            print("current time:-", ct)
-            print('request sent')           
+            print("current time:-", ct)        
             rows = Users.objects.get(email=email)
             print('request fetched')
             ct = datetime.datetime.now()
@@ -146,12 +146,18 @@ def login(request):
             print("current time:-", ct)
             if user is not None:
                 auth_login(request, user)
+                print('Logged in')
+                ct = datetime.datetime.now()
+                print("current time:-", ct)
                 return HttpResponseRedirect("/")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
+    print('GET request')
+    ct = datetime.datetime.now()
+    print("current time:-", ct)  
     return render(request, "login.html", context={"form": form})
 
 def register(request):
