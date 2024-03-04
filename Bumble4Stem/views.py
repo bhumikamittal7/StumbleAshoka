@@ -10,6 +10,7 @@ from django.contrib import messages
 from Bumble4Stem.models import Users, Matches, Rejected
 from django.db.models import Q, F
 from .forms import NewUserForm
+import time
 # Create your views here.
 
 def index(request):
@@ -131,9 +132,18 @@ def login(request):
         if form.is_valid():
             email = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            ts = time.time() 
+            print('request sent')           
+            print(ts)
             rows = Users.objects.get(email=email)
+            print('request fetched')
+            ts = time.time()            
+            print(ts)
             request.session["user_id"] = rows.id
             user = authenticate(username=email, password=password)
+            print('Authenticated')
+            ts = time.time()            
+            print(ts)
             if user is not None:
                 auth_login(request, user)
                 return HttpResponseRedirect("/")
