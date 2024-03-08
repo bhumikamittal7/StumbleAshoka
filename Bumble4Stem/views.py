@@ -6,6 +6,7 @@ from django.contrib.auth import logout as logout_user
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django_ratelimit.decorators import ratelimit
 
 from Bumble4Stem.models import Users, Matches, Rejected
 from django.db.models import Q, F
@@ -123,7 +124,7 @@ def editProfile(request):
             })
 
 
-
+@ratelimit(key='ip', rate='5/m', method='POST', block=True)
 def login(request):
     """Log user in"""
 
@@ -131,35 +132,21 @@ def login(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             email = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            print('request sent')
-            ct = datetime.datetime.now()
-            print("current time:-", ct)        
+            password = form.cleaned_data.get('password')      
             rows = Users.objects.get(email=email)
-            print('request fetched')
-            ct = datetime.datetime.now()
-            print("current time:-", ct)
             request.session["user_id"] = rows.id
             user = authenticate(username=email, password=password)
-            print('Authenticated')
-            ct = datetime.datetime.now()
-            print("current time:-", ct)
             if user is not None:
                 auth_login(request, user)
-                print('Logged in')
-                ct = datetime.datetime.now()
-                print("current time:-", ct)
                 return HttpResponseRedirect("/")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    print('GET request')
-    ct = datetime.datetime.now()
-    print("current time:-", ct)  
     return render(request, "login.html", context={"form": form})
 
+@ratelimit(key='ip', rate='6/m', method="POST", block=True)
 def register(request):
     """Register user"""
     if request.method == "POST":
