@@ -139,6 +139,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+RATELIMIT_ENABLE = True
+RATELIMIT_USE_CACHE = 'default'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
