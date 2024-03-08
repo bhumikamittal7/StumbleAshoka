@@ -200,7 +200,8 @@ def register(request):
                         "Q2": Q2,
                         "Q3": Q3,
                         "email": email,
-                        "avatar_index": avatar_index
+                        "avatar_index": avatar_index,
+                        "CaptchaForm": CaptchaForm()
                         })
             if pass1 != pass2:
                 messages.error(
@@ -215,7 +216,8 @@ def register(request):
                         "Q2": Q2,
                         "Q3": Q3,
                         "email": email,
-                        "avatar_index": avatar_index
+                        "avatar_index": avatar_index,
+                        "CaptchaForm": CaptchaForm()
                         })
             if len(pass1) < 8:
                 messages.error(
@@ -230,7 +232,8 @@ def register(request):
                         "Q2": Q2,
                         "Q3": Q3,
                         "email": email,
-                        "avatar_index": avatar_index
+                        "avatar_index": avatar_index,
+                        "CaptchaForm": CaptchaForm()
                         })
             if form.is_valid():
                 user = form.save()
@@ -261,7 +264,8 @@ def register(request):
                         "Q2": Q2,
                         "Q3": Q3,
                         "email": email,
-                        "avatar_index": avatar_index
+                        "avatar_index": avatar_index,
+                        "CaptchaForm": CaptchaForm()
                         })
     form = NewUserForm()
     cap = CaptchaForm()
