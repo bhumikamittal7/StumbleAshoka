@@ -124,7 +124,7 @@ def editProfile(request):
             })
 
 
-@ratelimit(key='ip', rate='2/m', method='POST', block=True)
+@ratelimit(key='post:username', rate='2/m', method='POST', block=True)
 def login(request):
     """Log user in"""
 
@@ -146,7 +146,7 @@ def login(request):
     form = AuthenticationForm()
     return render(request, "login.html", context={"form": form})
 
-@ratelimit(key='ip', rate='4/m', method="POST", block=True)
+@ratelimit(key='post:username', rate='4/m', method="POST", block=True)
 def register(request):
     """Register user"""
     if request.method == "POST":
