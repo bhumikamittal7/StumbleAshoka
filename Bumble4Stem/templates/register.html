@@ -327,6 +327,8 @@
                             <input class="form-control" placeholder="Confirm password" type="password" name="password2" autocomplete="new-password" required id="id_password2">
                     </div>
                     {% endif %}
+
+                    {{ CaptchaForm.as_p }}
         
                     <button type="submit" id="button" class="btn btn-primary deep-purple btn-block ">Register</button>
                     <br>

@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Bumble4Stem',
     'crispy_forms',
-    'whitenoise.runserver_nostatic'
+    'django_recaptcha',
+    'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +149,6 @@ RATELIMIT_USE_CACHE = 'default'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+RECAPTCHA_PUBLIC_KEY =  os.environ["CAP_PUBLIC_KEY"]
+RECAPTCHA_PRIVATE_KEY = os.environ["CAP_PRIVATE_KEY"]

@@ -10,7 +10,7 @@ from django_ratelimit.decorators import ratelimit
 
 from Bumble4Stem.models import Users, Matches, Rejected
 from django.db.models import Q, F
-from .forms import NewUserForm
+from .forms import NewUserForm, CaptchaForm
 import datetime
 # Create your views here.
 
@@ -129,120 +129,143 @@ def login(request):
     """Log user in"""
 
     if request.method == "POST":
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')      
-            rows = Users.objects.get(email=email)
-            request.session["user_id"] = rows.id
-            user = authenticate(username=email, password=password)
-            if user is not None:
-                auth_login(request, user)
-                return HttpResponseRedirect("/")
+        captcha = CaptchaForm(request.POST)
+        if not captcha.is_valid():
+            messages.error(request, "Invalid captcha")
+        else:
+            form = AuthenticationForm(request, data=request.POST)
+            if form.is_valid():
+                email = form.cleaned_data.get('username')
+                password = form.cleaned_data.get('password')      
+                rows = Users.objects.get(email=email)
+                request.session["user_id"] = rows.id
+                user = authenticate(username=email, password=password)
+                if user is not None:
+                    auth_login(request, user)
+                    return HttpResponseRedirect("/")
+                else:
+                    messages.error(request, "Invalid username or password.")
             else:
                 messages.error(request, "Invalid username or password.")
-        else:
-            messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
-    return render(request, "login.html", context={"form": form})
+    cap = CaptchaForm()
+    return render(request, "login.html", context={"form": form, "CaptchaForm": cap})
 
 @ratelimit(key='ip', rate='4/m', method="POST")
 def register(request):
     """Register user"""
     if request.method == "POST":
-        form = NewUserForm(request.POST)
-        display_name = request.POST['display_name']
-        batch = request.POST['batch']
-        pronouns = request.POST['pronouns']
-        major = request.POST['major']
-        research_interests = request.POST['research_interests']
-        Q1 = request.POST['Q1']
-        Q2 = request.POST['Q2']
-        Q3 = request.POST['Q3']
-        pass1 = request.POST['password1']
-        pass2 = request.POST['password2']
-        email = request.POST['email']
-        avatar_index = request.POST['avatar_index']
-        users = Users.objects.values('email')
-        for user in users:
-            if user['email'] == email:
+        captcha = CaptchaForm(request.POST)
+        if not captcha.is_valid():
+            messages.error(request, "Invalid captcha")
+            return render(request, "register.html", context={
+                        "display_name": request.POST['display_name'],
+                        "batch": request.POST['batch'],
+                        "major": request.POST['major'],
+                        "pronouns": request.POST['pronouns'],
+                        "research_interests": request.POST['research_interests'],
+                        "Q1": request.POST['Q1'],
+                        "Q2": request.POST['Q2'],
+                        "Q3": request.POST['Q3'],
+                        "email": request.POST['email'],
+                        "avatar_index": request.POST['avatar_index'],
+                        "CaptchaForm": CaptchaForm()
+                        })
+        else:
+            form = NewUserForm(request.POST)
+            display_name = request.POST['display_name']
+            batch = request.POST['batch']
+            pronouns = request.POST['pronouns']
+            major = request.POST['major']
+            research_interests = request.POST['research_interests']
+            Q1 = request.POST['Q1']
+            Q2 = request.POST['Q2']
+            Q3 = request.POST['Q3']
+            pass1 = request.POST['password1']
+            pass2 = request.POST['password2']
+            email = request.POST['email']
+            avatar_index = request.POST['avatar_index']
+            users = Users.objects.values('email')
+            for user in users:
+                if user['email'] == email:
+                    messages.error(
+                        request, "Account with email ID already exists")
+                    return render(request, "register.html", context={
+                        "display_name": display_name,
+                        "batch": batch,
+                        "major": major,
+                        "pronouns": pronouns,
+                        "research_interests": research_interests,
+                        "Q1": Q1,
+                        "Q2": Q2,
+                        "Q3": Q3,
+                        "email": email,
+                        "avatar_index": avatar_index
+                        })
+            if pass1 != pass2:
                 messages.error(
-                    request, "Account with email ID already exists")
+                    request, "Passwords do not match")
                 return render(request, "register.html", context={
-                    "display_name": display_name,
-                    "batch": batch,
-                    "major": major,
-                    "pronouns": pronouns,
-                    "research_interests": research_interests,
-                    "Q1": Q1,
-                    "Q2": Q2,
-                    "Q3": Q3,
-                    "email": email,
-                    "avatar_index": avatar_index
-                    })
-        if pass1 != pass2:
-            messages.error(
-                request, "Passwords do not match")
+                        "display_name": display_name,
+                        "batch": batch,
+                        "major": major,
+                        "pronouns": pronouns,
+                        "research_interests": research_interests,
+                        "Q1": Q1,
+                        "Q2": Q2,
+                        "Q3": Q3,
+                        "email": email,
+                        "avatar_index": avatar_index
+                        })
+            if len(pass1) < 8:
+                messages.error(
+                    request, "Passwords should have at least 8 characters")
+                return render(request, "register.html", context={
+                        "display_name": display_name,
+                        "batch": batch,
+                        "major": major,
+                        "pronouns": pronouns,
+                        "research_interests": research_interests,
+                        "Q1": Q1,
+                        "Q2": Q2,
+                        "Q3": Q3,
+                        "email": email,
+                        "avatar_index": avatar_index
+                        })
+            if form.is_valid():
+                user = form.save()
+                f = Users( 
+                    email=email,
+                    display_name=display_name,
+                    major=major,
+                    batch=batch,
+                    pronouns=pronouns,
+                    research_interests=research_interests,
+                    Q1=Q1,
+                    Q2=Q2,
+                    Q3=Q3,
+                    avatar_index=avatar_index)
+                f.save()
+                rows = Users.objects.get(email=user.email)
+                request.session["user_id"] = rows.id
+                auth_login(request, user)
+                return HttpResponseRedirect("/")
+            messages.error(request, "Follow the password rules")
             return render(request, "register.html", context={
-                    "display_name": display_name,
-                    "batch": batch,
-                    "major": major,
-                    "pronouns": pronouns,
-                    "research_interests": research_interests,
-                    "Q1": Q1,
-                    "Q2": Q2,
-                    "Q3": Q3,
-                    "email": email,
-                    "avatar_index": avatar_index
-                    })
-        if len(pass1) < 8:
-            messages.error(
-                request, "Passwords should have at least 8 characters")
-            return render(request, "register.html", context={
-                    "display_name": display_name,
-                    "batch": batch,
-                    "major": major,
-                    "pronouns": pronouns,
-                    "research_interests": research_interests,
-                    "Q1": Q1,
-                    "Q2": Q2,
-                    "Q3": Q3,
-                    "email": email,
-                    "avatar_index": avatar_index
-                    })
-        if form.is_valid():
-            user = form.save()
-            f = Users( 
-                email=email,
-                display_name=display_name,
-                major=major,
-                batch=batch,
-                pronouns=pronouns,
-                research_interests=research_interests,
-                Q1=Q1,
-                Q2=Q2,
-                Q3=Q3,
-                avatar_index=avatar_index)
-            f.save()
-            rows = Users.objects.get(email=user.email)
-            request.session["user_id"] = rows.id
-            auth_login(request, user)
-            return HttpResponseRedirect("/")
-        messages.error(request, "Follow the password rules")
-        return render(request, "register.html", context={
-                    "display_name": display_name,
-                    "batch": batch,
-                    "major": major,
-                    "pronouns": pronouns,
-                    "research_interests": research_interests,
-                    "Q1": Q1,
-                    "Q2": Q2,
-                    "Q3": Q3,
-                    "email": email,
-                    "avatar_index": avatar_index
-                    })
+                        "display_name": display_name,
+                        "batch": batch,
+                        "major": major,
+                        "pronouns": pronouns,
+                        "research_interests": research_interests,
+                        "Q1": Q1,
+                        "Q2": Q2,
+                        "Q3": Q3,
+                        "email": email,
+                        "avatar_index": avatar_index
+                        })
     form = NewUserForm()
-    return render(request, "register.html", context={"register_form": form})
+    cap = CaptchaForm()
+    return render(request, "register.html", context={"register_form": form, "CaptchaForm": cap})
 
 
 def logout(request):
